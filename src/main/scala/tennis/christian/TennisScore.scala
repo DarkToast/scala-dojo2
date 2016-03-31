@@ -1,4 +1,4 @@
-package christian.tennis
+package tennis.christian
 
 /**
   * Scores
