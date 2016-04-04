@@ -1,4 +1,4 @@
-package mastermind.tennis.sebastian
+package tennis.sebastian
 
 import org.scalatest.FunSuite
 
