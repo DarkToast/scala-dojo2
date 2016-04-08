@@ -19,7 +19,7 @@ class AnagramsSpec extends FunSuite {
       var index = hash(word)
       map(index) = if(map.contains(index)) map(index) + " " + word else word
     }
-    map.filter(_._2.contains(" ")).toList.sortBy(_._1)
+    map.filter(_._2.contains(" ")).toList
   }
 
   test("Hash of hat is aht") {
