@@ -7,12 +7,11 @@ object Main extends App {
 
   val result = Anagram.find(source.getLines().toList)
 
-  println(result.toPrettyString)
-
-
-  println(s"\n\nAnagrams found: ${result.anagramCount}")
-
   val end = System.currentTimeMillis()
 
+  println(result.toPrettyString)
+  println(s"\n\nAnagrams found: ${result.anagramCount}")
+  println(s"Longest anagrams: ${result.longestAnagrams}")
+  println(s"Longest set of words: ${result.longestSet}")
   println(s"Runtime: ${end - start}ms")
 }
