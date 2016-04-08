@@ -1,17 +1,12 @@
 package anagram.christoph
 
-import java.io.File
-
 import org.scalatest.FunSuite
-
-import scala.io.Source
 
 class AnagramsSpec extends FunSuite {
 
 
   def words(): List[String] = {
-    val file = new File("/home/christoph/projects/scala-dojo2/src/test/scala/anagram/christoph/wordlist.txt")
-    Source.fromFile(file).getLines().toList.distinct
+    io.Source.fromInputStream(getClass.getResourceAsStream("/wordlist.txt")).getLines().toList.distinct
   }
 
   def hash(word: String) : String = {
