@@ -10,42 +10,32 @@ class AnagramsSpec extends FunSuite {
 
 
   def words(): List[String] = {
-    val filename = "/home/christoph/projects/scala-dojo2/src/test/scala/anagram/christoph/wordlist.txt"
-    val file = new File(filename)
-    assertResult(true)(file.exists())
-    Source.fromFile(file).getLines().toList
+    val file = new File("/home/christoph/projects/scala-dojo2/src/test/scala/anagram/christoph/wordlist.txt")
+    Source.fromFile(file).getLines().toList.distinct
   }
 
-  def isAnagram(s: String, t: String): Boolean = {
-    s.toCharArray().diff(t.toCharArray()).length == 0 && t.toCharArray().diff(s.toCharArray()).length == 0
+  def hash(word: String) : String = {
+    word.toCharArray().sorted.mkString("")
   }
 
-  def getAnagramsOf(s: String, lines: List[String]): String = {
-    val matchingLines = lines.filter(isAnagram(_, s))
-    matchingLines.mkString(" ")
+  def getAnagramsIn(strings: List[String]) = {
+    var map = scala.collection.mutable.Map[String,String]()
+    for(word <- strings) {
+      var index = hash(word)
+      map(index) = if(map.contains(index)) map(index) + " " + word else word
+    }
+    map.filter(_._2.contains(" ")).toList.sortBy(_._1)
   }
 
-  test("test if lamp is anagram of palm") {
-    assertResult(true)(isAnagram("lamp", "palm"))
+  test("Hash of hat is aht") {
+    assertResult("aht")(hash("hat"))
   }
 
-  test("test if that is anagram of hat") {
-    assertResult(false)(isAnagram("that", "hat"))
+  test("Hash of that is ahtt") {
+    assertResult("ahtt")(hash("that"))
   }
 
-  test("test if fish is anagram of hi") {
-    assertResult(false)(isAnagram("fish", "hi"))
+  test("find all anagrams in wordlist") {
+    assertResult(20683)(getAnagramsIn(words()).length)
   }
-
-  test("find anagram for kinship") {
-    var wordlist = List("kinship", "pinkish")
-    assertResult("kinship pinkish")(getAnagramsOf("kinship", wordlist))
-  }
-
-  test("find anagram for kinship in wordlist") {
-    var wordlist = List("kinship", "pinkish")
-    assertResult("kinship pinkish")(getAnagramsOf("kinship", words()))
-  }
-
-
 }
