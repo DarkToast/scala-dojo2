@@ -2,11 +2,11 @@ package anagram.christoph
 
 import org.scalatest.FunSuite
 
-class AnagramsSpec extends FunSuite {
+class AnagramSpec extends FunSuite {
 
 
   def words(): List[String] = {
-    io.Source.fromInputStream(getClass.getResourceAsStream("/wordlist.txt")).getLines().toList.distinct
+    io.Source.fromInputStream(getClass.getResourceAsStream("/wordlist.txt")).getLines().toList
   }
 
   def hash(word: String): String = {
